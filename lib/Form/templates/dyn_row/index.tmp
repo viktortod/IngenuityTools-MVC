@@ -1,0 +1,55 @@
+<div id="<?php echo $name?>result" class="dyn_row_result"></div>
+<div class="dyn_row_form">
+	<?php foreach($editForm as $widgetName => $widget){
+		$widget->render($widgetName,null);
+	}?>
+	
+	<a href="#" id="<?php echo $name?>_dyn_row_add" >Save</a>
+</div>
+<table id="<?php echo $name ?>_table">
+	<?php echo $headers?>
+	<?php echo join($info)?>
+</table>
+
+<?php $param = Request::getInstance()->getParam('controller');?>
+<?php $id = Request::getInstance()->getParam('id');?>
+
+<script>
+	$(function(){
+		var name = '<?php echo $name?>';
+
+		$("#" + name + "_dyn_row_add").click(function(){
+			$.ajax({
+				type: "POST",
+				url: "<?php echo APP_MAIN_URL?><?php echo $param?>/" + name + "Add/<?php echo $id?>",
+				data: build_data(),
+				success: function(response){
+					$('#' + name + "result").html(response);
+				}
+			});
+		});
+
+		$(".operation").click(function(){
+			var definition = $(this).attr('id').split("_");
+			var operation = definition[0];
+			var subject = definition[1];
+
+			$.ajax({
+				type: "POST",
+				url: "<?php echo APP_MAIN_URL?><?php echo $param?>/" + operation + "/" + subject,
+				success: function(response){
+					$('#' + name + "result").html(response);
+				}
+			});
+		});
+	});
+
+	function build_data(){
+		var queryString = "send=1";
+		$('.dyn_row_form').children().each(function(){
+			queryString += "&" + $(this).attr("name") + "=" + $(this).val();
+		});
+
+		return queryString;
+	}
+</script>

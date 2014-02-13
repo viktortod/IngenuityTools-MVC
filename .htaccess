@@ -1,0 +1,7 @@
+#Options +FollowSymLinks
+RewriteEngine On
+
+RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([0-9]+)$ index.php?controller=$1&action=$2&id=$3 [L,QSA]
+RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/$ index.php?controller=$1&action=$2 [L,QSA]
+RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)$ index.php?controller=$1&action=$2	[L,QSA]
+RewriteRule ^([a-zA-Z0-9]+)/$ index.php?controller=$1&action=index	[L,QSA]

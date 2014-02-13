@@ -1,0 +1,9 @@
+<tr>
+	<?php foreach ($columns as  $key => $column){?>
+		<td><?php echo $line[$key]?></td>
+	<?php }?>
+	
+	<?php foreach($operations as $key => $operation){?>
+		<td><a href="#" class="operation" id="<?php echo $operation?>_<?php echo $line[$key]?>" ><?php echo $operation?></a></td>
+	<?php }?>
+</tr>

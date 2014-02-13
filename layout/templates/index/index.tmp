@@ -1,0 +1,10 @@
+<h1>Ingenuity Tools framework 1.0</h1>
+<div>
+	If you see this message, You have successfully installed Ingenuity Tools framework.
+	
+	If you like to contribute somehow, do not hessitate and write to: <i>viktortod@abv.bg</i>
+</div>
+<br />
+<div>
+	Status: <?php echo $a; ?>
+</div>

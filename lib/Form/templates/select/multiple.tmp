@@ -1,0 +1,50 @@
+<select id="<?php echo $name?>_left_multiple" multiple="multiple">
+<?php foreach($options as $key => $option){?>
+	<option value="<?php echo $key?>"><?php echo $option?></option>
+<?php }?>
+</select>
+<select id="<?php echo $name?>_right_multiple" name="<?php echo $name?>" multiple="multiple">
+<?php foreach($values as $key => $option){?>
+	<option value="<?php echo $key?>"><?php echo $option?></option>
+<?php }?>
+</select>
+
+<script>
+	$(function(){
+		refreshEvents();
+
+		$("form").submit(function(){
+			var widget = '#<?php echo $name?>';
+			var right = widget + '_right_multiple';
+
+			$(right).find('option').attr('selected','selected');
+			
+			return true;
+		});
+	});
+
+	function refreshEvents(){
+		var widget = '#<?php echo $name?>';
+		var left = widget + '_left_multiple';
+		var right = widget + '_right_multiple';
+		
+		$(left + ' option').unbind("dblclick").bind("dblclick",function(){
+			option_move_element(this, $(right));
+		});
+
+		$(right + ' option').unbind("dblclick").bind("dblclick",function(){
+			option_move_element(this, $(left));
+		});
+	}
+
+	function option_move_element(element, to){
+		var optionTemplate = document.createElement('option');
+		$(optionTemplate).attr("value",$(element).attr('value'));
+		$(optionTemplate).html($(element).html());
+
+		$(to).append(optionTemplate);
+		$(element).remove();
+
+		refreshEvents();
+	}
+</script>
